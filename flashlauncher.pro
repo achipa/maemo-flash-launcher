@@ -4,20 +4,23 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui webkit
 
 TARGET = flashlauncher
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    appdetail.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    appdetail.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    appdetail.ui
 
-CONFIG += mobility
+CONFIG += mobility qdbus
 MOBILITY = 
 
 symbian {
