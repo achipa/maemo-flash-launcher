@@ -22,7 +22,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>../../../../../../maemo/sbhome/flashlauncher/flashlauncher/bigrotation2.gif</pixmap>
+        <pixmap resource="icons.qrc">:/icons/bigrotation2.gif</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -86,6 +86,13 @@
       </spacer>
      </item>
      <item>
+      <widget class="QPushButton" name="webB">
+       <property name="text">
+        <string>Visit web page</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="okB">
        <property name="text">
         <string>GO</string>
@@ -96,6 +103,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

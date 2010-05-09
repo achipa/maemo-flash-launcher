@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>missingicon.png</file>
+        <file>bigrotation2.gif</file>
+    </qresource>
+</RCC>

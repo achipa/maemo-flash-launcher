@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui webkit
+QT       += core gui webkit network
 
 TARGET = flashlauncher
 TEMPLATE = app
@@ -12,10 +12,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    appdetail.cpp
+    appdetail.cpp \
+    simplefetch.cpp \
+    launcher.cpp
 
 HEADERS  += mainwindow.h \
-    appdetail.h
+    appdetail.h \
+    simplefetch.h \
+    launcher.h
 
 FORMS    += mainwindow.ui \
     appdetail.ui
@@ -29,3 +33,9 @@ symbian {
     TARGET.EPOCSTACKSIZE = 0x14000
     TARGET.EPOCHEAPSIZE = 0x020000 0x800000
 }
+
+RESOURCES += \
+    icons.qrc
+
+OTHER_FILES += \
+    applications.conf

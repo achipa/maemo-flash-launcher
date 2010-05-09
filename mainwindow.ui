@@ -45,7 +45,7 @@
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap>../../../../../../maemo/Desktop/sbhome/flashgamer/flashgamer/learn-to-fly.gif</pixmap>
+              <pixmap resource="icons.qrc">:/icons/missingicon.png</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -128,7 +128,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Launch fullscreen</string>
+    <string>Force fullscreen</string>
    </property>
   </action>
   <action name="actionAbout">
@@ -143,6 +143,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections/>
 </ui>
