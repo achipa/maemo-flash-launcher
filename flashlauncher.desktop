@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.38
+Type=Application
+Name=AppWatch
+Exec=/usr/bin/appwatch
+Icon=appwatch
+X-HildonDesk-ShowInToolbar=true
+X-Osso-Type=application/x-executable
+
