@@ -20,10 +20,11 @@
 
 #define KNPPLAYERPATH "/opt/kmplayer/bin/knpplayer"
 #define FLASHPLUGINPATH "/usr/lib/browser/plugins/libflashplayer.so"
+#define SETTINGSPATH "/usr/share/flashlauncher/applications.conf"
 
 int launcher(QStringList args)
 {
-        QSettings settings("applications.conf", QSettings::IniFormat);
+        QSettings settings(SETTINGSPATH, QSettings::IniFormat);
         QSettings localsettings("flashlauncher", "applications");
         int engine = args.at(1).toInt();
         QString appname = args.at(2);
@@ -54,6 +55,7 @@ int launcher(QStringList args)
                 if (forcefullscreen || localsettings.value("fullscreen", settings.value("fullscreen", 1)).toBool())
                     qwv->showFullScreen();
                 qwv->show();
+                return qApp->exec();
 
             } else if (engine == MICROB) {
                 QDBusInterface browser("com.nokia.osso_browser", "/com/nokia/osso_browser/request", "com.nokia.osso_browser")  ;
@@ -99,6 +101,7 @@ int launcher(QStringList args)
             qwv->settings()->setAttribute(QWebSettings::PluginsEnabled, true);
             qwv->load(args.at(1));
             qwv->show();
+            return qApp->exec();
 //        if (QFile::exists(args.at(2))) {            // argument is an existing file
 //        } else if (QUrl(args.at(2)).isValid()){       // argument is a URL
         }

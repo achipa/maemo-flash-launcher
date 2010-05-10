@@ -1,25 +1,32 @@
 #ifndef APPDETAIL_H
 #define APPDETAIL_H
 
-#include <QDialog>
+#include <QMainWindow>
 
 namespace Ui {
-    class appdetail;
+    class AppDetail;
 }
 
-class appdetail : public QDialog
+class AppDetail : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit appdetail(QWidget *parent = 0);
-    ~appdetail();
+    explicit AppDetail(QWidget *parent = 0);
+    ~AppDetail();
+    void loadLabels(QString groupname);
+
+public slots:
+    void setImage(QByteArray ba);
+    void launch();
+    void home();
 
 protected:
     void changeEvent(QEvent *e);
 
 private:
-    Ui::appdetail *ui;
+    QString appname;
+    Ui::AppDetail *ui;
 };
 
 #endif // APPDETAIL_H

@@ -4,6 +4,8 @@
 #include <QtGui/QMainWindow>
 #include <QtGui/QMessageBox>
 
+#include "mainwindowline.h"
+
 namespace Ui {
     class MainWindow;
 }
@@ -22,6 +24,7 @@ protected:
 
 private:
     Ui::MainWindow *ui;
+    QVector<MainWindowLine*> mwlines;
 };
 
 #endif // MAINWINDOW_H
