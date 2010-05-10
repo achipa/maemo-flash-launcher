@@ -48,7 +48,7 @@ void MainWindowLine::setImage(QByteArray ba)
         ui->img->setPixmap(QPixmap(p).scaled(96, 96));
 }
 
-void MainWindowLine::mousePressEvent(QMouseEvent * event)
+void MainWindowLine::mouseReleaseEvent(QMouseEvent * event)
 {
     qDebug() << appname << " details";
 //    AppDetail* ad = new AppDetail(qobject_cast<QMainWindow*>(this->parent()));

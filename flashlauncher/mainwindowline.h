@@ -23,7 +23,7 @@ protected:
     void changeEvent(QEvent *e);
 
 private:
-    void mousePressEvent(QMouseEvent * event);
+    void mouseReleaseEvent(QMouseEvent * event);
     QString appname;
     Ui::MainWindowLine *ui;
 };

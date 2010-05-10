@@ -1,16 +1,21 @@
-Package: flashlauncher
-Version: 0.1-maemo0
+Source: flashlauncher
 Section: user/games
 Priority: extra
-Architecture: armel
-Depends: libc6 (>= 2.5.0-1), libgcc1 (>= 1:4.2.1), libqt4-core (>= 4.5.3~git20090723), libqt4-dbus (>= 4.5.3~git20090723), libqt4-gui (>= 4.5.3~git20090723), libqt4-network (>= 4.5.3~git20090723), libqt4-webkit (>= 4.5.3~git20090723), libstdc++6 (>= 4.2.1)
-Installed-Size: 232
 Maintainer: Attila Csipa <maemo@csipa.in.rs>
+Build-Depends: debhelper (>= 5), libqt4-dev (>= 4.5.0)
+Standards-Version: 3.8.0
+Homepage: downloads.maemo.org
+XSBC-Bugtracker: https://bugs.maemo.org/enter_bug.cgi?product=flashlauncher
+
+Package: flashlauncher
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Flash Application Database And Launcher
  Flashlauncher is a flash game^H^H^H^H application database
  and launcher that facilitates the easy use of Maemo device
  friendly flash content.
-Maemo-Icon-26: 
+XB-Maemo-Display-Name: Flash Launcher
+XB-Maemo-Icon-26:
  iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAAACXBIWXMAAA9h
  AAAPYQGoP6dpAAAACXZwQWcAAAAwAAAAMADO7oxXAAAQt0lEQVRYw41Za3Bd
  V3Vea+19zn1bD1uW5diW9bKcxFKc2HLsJA6QMGCnUGgC004HOmSmLf1RoBna
