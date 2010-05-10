@@ -8,6 +8,8 @@
 
 #include "qdebug.h"
 
+#define SETTINGSPATH "/usr/share/flashlauncher/applications.conf"
+
 AppDetail::AppDetail(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::AppDetail)
@@ -23,7 +25,7 @@ AppDetail::~AppDetail()
 void AppDetail::loadLabels(QString groupname)
 {
     appname = groupname;
-    QSettings settings("applications.conf", QSettings::IniFormat);
+    QSettings settings(SETTINGSPATH, QSettings::IniFormat);
     settings.beginGroup(appname);
     ui->desc->setText(settings.value("description","").toString());
     this->setWindowTitle(settings.value("name", appname).toString());
@@ -50,7 +52,7 @@ void AppDetail::loadLabels(QString groupname)
 
 void AppDetail::launch()
 {
-    QSettings settings("applications.conf", QSettings::IniFormat);
+    QSettings settings(SETTINGSPATH, QSettings::IniFormat);
     settings.beginGroup(appname);
     QStringList args;
     args << QString("%1").arg(ui->engine->currentIndex()+1) << appname;
@@ -59,7 +61,7 @@ void AppDetail::launch()
 
 void AppDetail::home()
 {
-    QSettings settings("applications.conf", QSettings::IniFormat);
+    QSettings settings(SETTINGSPATH, QSettings::IniFormat);
     settings.beginGroup(appname);
     QDBusInterface browser("com.nokia.osso_browser", "/com/nokia/osso_browser/request", "com.nokia.osso_browser")  ;
     browser.call("open_new_window", settings.value("base").toString());
