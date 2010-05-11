@@ -29,7 +29,7 @@ void MainWindowLine::loadLabels(QString groupname)
     ui->desc->setText(settings.value("description","").toString());
     ui->name->setText(settings.value("name", appname).toString());
     ui->kbsize->setText(settings.value("size", appname).toString()+QString("KiB"));
-    ui->img->setGeometry(0, 0, 96, 96);
+    ui->img->setGeometry(0, 0, 64, 64);
     if (!settings.value("image").toString().isEmpty())
     {
         SimpleFetch * sf = new SimpleFetch(settings.value("image").toString());
@@ -45,7 +45,7 @@ void MainWindowLine::setImage(QByteArray ba)
     if (p.size().isEmpty())
         qDebug () << ba;
     else
-        ui->img->setPixmap(QPixmap(p).scaled(96, 96));
+        ui->img->setPixmap(QPixmap(p).scaled(64, 64));
 }
 
 void MainWindowLine::mouseReleaseEvent(QMouseEvent * event)
@@ -57,6 +57,7 @@ void MainWindowLine::mouseReleaseEvent(QMouseEvent * event)
 #ifdef Q_WS_MAEMO_5
     ad->setAttribute(Qt::WA_Maemo5StackedWindow);
 #endif
+    ad->setWindowFlags(ad->windowFlags() | Qt::Window);
     ad->show();
 }
 

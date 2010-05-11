@@ -2,5 +2,6 @@
     <qresource prefix="/icons">
         <file>missingicon.png</file>
         <file>bigrotation2.gif</file>
+        <file>missingicon64.png</file>
     </qresource>
 </RCC>

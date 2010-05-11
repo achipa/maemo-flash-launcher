@@ -11,10 +11,12 @@ Package: flashlauncher-experimental
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Conflicts: flashlauncher
-Description: Flash Application Database And Launcher
+Description: Flash Game and Application Database/Launcher
  Flashlauncher is a flash game^H^H^H^H application database
  and launcher that facilitates the easy use of Maemo device
  friendly flash content.
+ .
+ This package is recommended for PR1.0-PR1.1.1 users
  .
  This versions links to the bleeding edge unstable version of
  Qt in extras-devel.

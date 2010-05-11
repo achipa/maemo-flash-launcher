@@ -22,6 +22,10 @@ public slots:
 protected:
     void changeEvent(QEvent *e);
 
+private slots:
+    void updateSettings();
+    void email();
+    void support();
 private:
     Ui::MainWindow *ui;
     QVector<MainWindowLine*> mwlines;

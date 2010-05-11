@@ -10,10 +10,13 @@ XSBC-Bugtracker: https://bugs.maemo.org/enter_bug.cgi?product=flashlauncher
 Package: flashlauncher
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Flash Application Database And Launcher
+Description: Flash Game and Application Database/Launcher
  Flashlauncher is a flash game^H^H^H^H application database
  and launcher that facilitates the easy use of Maemo device
  friendly flash content.
+ .
+ This package is recommended for N900 devices with PR1.2 or 
+ newer and N8x0 devices.
 XB-Maemo-Display-Name: Flash Launcher
 XB-Maemo-Icon-26:
  iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAAACXBIWXMAAA9h

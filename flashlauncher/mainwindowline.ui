@@ -32,7 +32,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="icons.qrc">:/icons/missingicon.png</pixmap>
+         <pixmap resource="icons.qrc">:/icons/missingicon64.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -45,7 +45,7 @@
          <widget class="QLabel" name="name">
           <property name="font">
            <font>
-            <pointsize>26</pointsize>
+            <pointsize>24</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -85,13 +85,6 @@
        </widget>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
     </widget>
    </item>
   </layout>

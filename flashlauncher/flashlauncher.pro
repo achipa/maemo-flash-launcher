@@ -36,6 +36,10 @@ symbian {
     TARGET.EPOCSTACKSIZE = 0x14000
     TARGET.EPOCHEAPSIZE = 0x020000 0x800000
 }
+maemo5 {
+    message("Maemo5 build")
+    QT+= maemo5
+}
 unix {
     # VARIABLES
     isEmpty(PREFIX):PREFIX = /usr # /local ?

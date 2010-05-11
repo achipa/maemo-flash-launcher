@@ -54,6 +54,9 @@ int launcher(QStringList args)
                     qwv->load(QUrl(settings.value("swf").toString()));
                 if (forcefullscreen || localsettings.value("fullscreen", settings.value("fullscreen", 1)).toBool())
                     qwv->showFullScreen();
+#ifdef Q_WS_MAEMO_5
+                qwv->setAttribute(Qt::WA_Maemo5NonComposited);
+#endif
                 qwv->show();
                 return qApp->exec();
 

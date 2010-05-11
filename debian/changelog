@@ -1,6 +1,5 @@
-flashlauncher-experimental (0.1-maemo5) unstable; urgency=low
+flashlauncher-experimental (0.1.1-maemo0) unstable; urgency=low
 
-  * Initial release
-  * (further) Dependency fixes by hard dependencies. Ugh.
+  * Maemo5 friendlification, UI polishing
 
  -- Attila Csipa <maemo@csipa.in.rs>  Sun, 09 May 2010 23:21:54 +0100
