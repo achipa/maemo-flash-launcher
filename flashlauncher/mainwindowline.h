@@ -2,6 +2,9 @@
 #define MAINWINDOWLINE_H
 
 #include <QtGui/QWidget>
+#ifdef Q_WS_MAEMO_5
+    #include <QtGui/QAbstractKineticScroller>
+#endif
 
 namespace Ui {
     class MainWindowLine;
@@ -15,6 +18,9 @@ public:
     explicit MainWindowLine(QWidget *parent = 0);
     void loadLabels(QString groupname);
     ~MainWindowLine();
+#ifdef Q_WS_MAEMO_5
+    void setScroller(QAbstractKineticScroller *scr) { scroller = scr; }
+#endif
 
 public slots:
     void setImage(QByteArray ba);
@@ -24,6 +30,9 @@ protected:
 
 private:
     void mouseReleaseEvent(QMouseEvent * event);
+#ifdef Q_WS_MAEMO_5
+    QAbstractKineticScroller *scroller;
+#endif
     QString appname;
     Ui::MainWindowLine *ui;
 };

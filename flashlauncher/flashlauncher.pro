@@ -15,17 +15,20 @@ SOURCES += main.cpp\
     appdetail.cpp \
     simplefetch.cpp \
     launcher.cpp \
-    mainwindowline.cpp
+    mainwindowline.cpp \
+    addgame.cpp
 
 HEADERS  += mainwindow.h \
     appdetail.h \
     simplefetch.h \
     launcher.h \
-    mainwindowline.h
+    mainwindowline.h \
+    addgame.h
 
 FORMS    += mainwindow.ui \
     appdetail.ui \
-    mainwindowline.ui
+    mainwindowline.ui \
+    addgame.ui
 
 CONFIG += qdbus # mobility
 MOBILITY = 

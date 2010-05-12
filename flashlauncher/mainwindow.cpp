@@ -6,6 +6,7 @@
 #include "qdebug.h"
 #ifdef Q_WS_MAEMO_5
     #include <QtMaemo5/QMaemo5InformationBox>
+    #include <QtGui/QAbstractKineticScroller>
 #endif
 
 #define SETTINGSPATH "/usr/share/flashlauncher/applications.conf"
@@ -52,6 +53,8 @@ MainWindow::MainWindow(QWidget *parent) :
             mwline = new MainWindowLine(this);
 #ifdef Q_WS_MAEMO_5
             mwline->setAttribute(Qt::WA_Maemo5StackedWindow);
+            mwline->setScroller(ui->scrollArea->property("kineticScroller")
+                                .value<QAbstractKineticScroller *>());
 #endif
             mwline->loadLabels(group);
             ui->verticalLayout_2->insertWidget(ui->verticalLayout_2->count()-1, mwline);
@@ -63,9 +66,10 @@ MainWindow::MainWindow(QWidget *parent) :
         if (entries == 0)
             return;
         settings.setArrayIndex(qrand()/RAND_MAX*entries);
+        qDebug() << settings.allKeys();
 #ifdef Q_WS_MAEMO_5
         setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
-        QMaemo5InformationBox::information ( this,  settings.value("text").toString());
+        QMaemo5InformationBox::information ( 0,  settings.value("text").toString(), QMaemo5InformationBox::NoTimeout);
 #else
         QMessageBox::information(this, "Tip of the day", settings.value("text").toString());
         ui->actionDisplay_tips_on_startup->setVisible(false);

@@ -64,6 +64,7 @@
     </property>
     <addaction name="actionLaunch_fullscreen"/>
     <addaction name="actionUpdate_app_list"/>
+    <addaction name="actionShow_hidden"/>
     <addaction name="actionSupport_forum"/>
     <addaction name="actionDisplay_tips_on_startup"/>
     <addaction name="actionMake_a_game_request"/>
@@ -112,7 +113,7 @@
   </action>
   <action name="actionMake_a_game_request">
    <property name="text">
-    <string>Email an inclusion request</string>
+    <string>Request game by email</string>
    </property>
   </action>
   <action name="actionAdd_game_manually">
@@ -123,6 +124,14 @@
   <action name="actionSupport_forum">
    <property name="text">
     <string>Support forum</string>
+   </property>
+  </action>
+  <action name="actionShow_hidden">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show hidden</string>
    </property>
   </action>
  </widget>

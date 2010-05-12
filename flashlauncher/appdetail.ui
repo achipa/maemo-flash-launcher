@@ -23,7 +23,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="icons.qrc">:/icons/bigrotation2.gif</pixmap>
+         <pixmap resource="icons.qrc">:/icons/missingicon.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>false</bool>
@@ -145,6 +145,46 @@
     </item>
    </layout>
   </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuMain">
+    <property name="title">
+     <string>Main</string>
+    </property>
+    <addaction name="actionSend_config_via_email"/>
+    <addaction name="actionCopy_config_to_clipboard"/>
+    <addaction name="actionDelete_app"/>
+    <addaction name="actionHide"/>
+   </widget>
+   <addaction name="menuMain"/>
+  </widget>
+  <action name="actionSend_config_via_email">
+   <property name="text">
+    <string>Send config via email</string>
+   </property>
+  </action>
+  <action name="actionCopy_config_to_clipboard">
+   <property name="text">
+    <string>Copy config to clipboard</string>
+   </property>
+  </action>
+  <action name="actionDelete_app">
+   <property name="text">
+    <string>Delete</string>
+   </property>
+  </action>
+  <action name="actionHide">
+   <property name="text">
+    <string>Hide</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="icons.qrc"/>

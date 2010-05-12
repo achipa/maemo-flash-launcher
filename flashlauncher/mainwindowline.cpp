@@ -50,6 +50,12 @@ void MainWindowLine::setImage(QByteArray ba)
 
 void MainWindowLine::mouseReleaseEvent(QMouseEvent * event)
 {
+#ifdef Q_WS_MAEMO_5
+    if (scroller && (scroller->state() == QAbstractKineticScroller::Pushing || scroller->state() == QAbstractKineticScroller::MousePressed))
+        return;
+    qDebug() << "Scrollstate" << scroller->state() << event;
+#endif
+
     qDebug() << appname << " details";
 //    AppDetail* ad = new AppDetail(qobject_cast<QMainWindow*>(this->parent()));
     AppDetail* ad = new AppDetail( qobject_cast<QMainWindow*>(qApp->activeWindow()));
