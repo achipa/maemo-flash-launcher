@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
 #else
         w.show();
 #endif
+        w.showTip();
         return a.exec();
     }
 }

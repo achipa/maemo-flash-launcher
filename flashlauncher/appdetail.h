@@ -14,8 +14,10 @@ class AppDetail : public QMainWindow
 public:
     explicit AppDetail(QWidget *parent = 0);
     ~AppDetail();
-    void loadLabels(QString groupname);
-
+    void loadLabels(QString cfgfile, QString groupname);
+    QString getConfig();
+Q_SIGNAL
+    void visibilityChanged();
 public slots:
     void setImage(QByteArray ba);
     void launch();
@@ -24,8 +26,15 @@ public slots:
 protected:
     void changeEvent(QEvent *e);
 
+private slots:
+    void setClipboard();
+    void sendConfigMail();
+    void delApp();
+    void toggleHide();
+
 private:
     QString appname;
+    QString conffile;
     Ui::AppDetail *ui;
 };
 

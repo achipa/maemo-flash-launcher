@@ -3,38 +3,47 @@
 
 #include <QtCore/QSettings>
 #include "simplefetch.h"
-#include "appdetail.h"
 #include "qdebug.h"
 
-
-#define SETTINGSPATH "/usr/share/flashlauncher/applications.conf"
+#define DEFAULTSETTINGS "/usr/share/flashlauncher/applications.conf"
 
 MainWindowLine::MainWindowLine(QWidget *parent) :
     QWidget(parent),
+    configfile(DEFAULTSETTINGS),
+    localapp(false),
     ui(new Ui::MainWindowLine)
+
 {
+    ad = new AppDetail();
     ui->setupUi(this);
 }
 
 MainWindowLine::~MainWindowLine()
 {
+    delete ad;
     delete ui;
 }
 
-void MainWindowLine::loadLabels(QString groupname)
+void MainWindowLine::loadLabels(QString cfgfile, QString groupname)
 {
+    configfile = cfgfile;
     appname = groupname;
-    QSettings settings(SETTINGSPATH, QSettings::IniFormat);
+    QSettings settings(configfile, QSettings::IniFormat);
     settings.beginGroup(groupname);
     ui->desc->setText(settings.value("description","").toString());
     ui->name->setText(settings.value("name", appname).toString());
-    ui->kbsize->setText(settings.value("size", appname).toString()+QString("KiB"));
+    ui->kbsize->setText(settings.value("size", "? ").toString()+QString("KiB"));
     ui->img->setGeometry(0, 0, 64, 64);
     if (!settings.value("image").toString().isEmpty())
     {
         SimpleFetch * sf = new SimpleFetch(settings.value("image").toString());
         connect(sf, SIGNAL(content(QByteArray)), this, SLOT(setImage(QByteArray)));
         connect(sf, SIGNAL(content(QByteArray)), sf, SLOT(deleteLater())); // delete simplefetch after desc set
+    }
+    if (settings.value("hidden","0").toInt() > 0)
+    {
+        qDebug() << appname << "is hidden";
+        setVisible(false);
     }
 }
 
@@ -58,8 +67,10 @@ void MainWindowLine::mouseReleaseEvent(QMouseEvent * event)
 
     qDebug() << appname << " details";
 //    AppDetail* ad = new AppDetail(qobject_cast<QMainWindow*>(this->parent()));
-    AppDetail* ad = new AppDetail( qobject_cast<QMainWindow*>(qApp->activeWindow()));
-    ad->loadLabels(appname);
+
+    ad->setParent(qobject_cast<QMainWindow*>(qApp->activeWindow()));
+
+    ad->loadLabels(configfile, appname);
 #ifdef Q_WS_MAEMO_5
     ad->setAttribute(Qt::WA_Maemo5StackedWindow);
 #endif

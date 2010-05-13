@@ -3,19 +3,24 @@
 
 #include <QtCore/QSettings>
 #include <QtDBus/QDBusInterface>
+#include <QtCore/QDir>
+#include <QtCore/QStringList>
+
 #include "qdebug.h"
 #ifdef Q_WS_MAEMO_5
     #include <QtMaemo5/QMaemo5InformationBox>
     #include <QtGui/QAbstractKineticScroller>
 #endif
+#include "addgame.h"
 
-#define SETTINGSPATH "/usr/share/flashlauncher/applications.conf"
+#define SETTINGSPATH "/usr/share/flashlauncher"
 #define TALKTHREAD "http://talk.maemo.org/showthread.php?t=52275"
 #define MAIL "mailto:flashlauncher@csipa.in.rs?subject=Flash game/app inclusion request"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    settings(QString(SETTINGSPATH)+"applications.conf", QSettings::IniFormat)
 {
     ui->setupUi(this);
     connect(ui->actionAbout_Qt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
@@ -24,10 +29,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionSupport_forum, SIGNAL(triggered()), this, SLOT(support()));
     connect(ui->actionDisplay_tips_on_startup, SIGNAL(triggered()), this, SLOT(updateSettings()));
     connect(ui->actionLaunch_fullscreen, SIGNAL(triggered()), this, SLOT(updateSettings()));
+    connect(ui->actionAdd_game_manually, SIGNAL(triggered()), this, SLOT(addGame()));
+    connect(ui->actionShow_hidden, SIGNAL(triggered()), this, SLOT(regenAppList()));
 
 #ifdef Q_WS_MAEMO_5 // no harm if we put this in anyway... might be useful for Diablo folks
     setAttribute(Qt::WA_Maemo5StackedWindow);
-    setAttribute(Qt::WA_Maemo5ShowProgressIndicator);
 #endif
 // no harm if we put this in anyway... might be useful for Diablo folks
     ui->scrollArea->setProperty("FingerScrollable", true);
@@ -37,39 +43,85 @@ MainWindow::MainWindow(QWidget *parent) :
     QSettings localsettings("flashlauncher", "applications");
     localsettings.beginGroup("global");
     ui->actionLaunch_fullscreen->setChecked(localsettings.value("fullscreen","1").toInt());
-    ui->actionDisplay_tips_on_startup->setChecked(localsettings.value("tips","1").toInt());
+    ui->actionDisplay_tips_on_startup->setChecked(localsettings.value("tips","0").toInt()); // tips are off by default until PR1.2
+    ui->actionShow_hidden->setChecked(localsettings.value("showhidden","0").toInt());
     localsettings.endGroup();
     updateSettings();
+    regenAppList();
+}
 
-
-    QSettings settings(SETTINGSPATH, QSettings::IniFormat);
-    MainWindowLine* mwline;
-    foreach (QString group, settings.childGroups())
-    {
-        if (group != "global")
-        {
-            qDebug() << group;
-            settings.beginGroup(group);
-            mwline = new MainWindowLine(this);
+void MainWindow::regenAppList()
+{
 #ifdef Q_WS_MAEMO_5
-            mwline->setAttribute(Qt::WA_Maemo5StackedWindow);
-            mwline->setScroller(ui->scrollArea->property("kineticScroller")
-                                .value<QAbstractKineticScroller *>());
+    setAttribute(Qt::WA_Maemo5ShowProgressIndicator);
 #endif
-            mwline->loadLabels(group);
-            ui->verticalLayout_2->insertWidget(ui->verticalLayout_2->count()-1, mwline);
-            settings.endGroup();
+
+    // very very very very very very very dirty way of resetting the scrollarea, suggestions welcome
+
+/*    ui->setupUi(this);
+    ui->scrollArea->setProperty("FingerScrollable", true);
+    ui->scrollArea->setProperty("FingerScrollBars", false);
+*/
+    while (ui->verticalLayout_2->count() > 1)
+        delete ui->verticalLayout_2->takeAt(0);
+
+
+    QSettings localsettings("flashlauncher", "applications");
+    MainWindowLine* mwline;
+    QDir cfgDir(SETTINGSPATH);
+    QStringList conflist = cfgDir.entryList (QStringList("*.conf"));
+    conflist.append(localsettings.fileName());
+    foreach (QString conffile, conflist)
+    {
+        qDebug() << conffile;
+        QSettings s(cfgDir.filePath(conffile), QSettings::IniFormat);
+        foreach (QString group, s.childGroups())
+        {
+            if (group != "global")
+            {
+                qDebug() << group;
+                s.beginGroup(group);
+                mwline = new MainWindowLine(this);
+#ifdef Q_WS_MAEMO_5
+                mwline->setAttribute(Qt::WA_Maemo5StackedWindow);
+                mwline->setScroller(ui->scrollArea->property("kineticScroller")
+                                    .value<QAbstractKineticScroller *>());
+#endif
+                connect(mwline->ad, SIGNAL(visibilityChanged()), this, SLOT(regenAppList()));
+                mwline->loadLabels(s.fileName(), group);
+                if (ui->actionShow_hidden->isChecked())
+                    mwline->setVisible(true);
+
+                ui->verticalLayout_2->insertWidget(ui->verticalLayout_2->count()-1, mwline);
+                s.endGroup();
+            }
         }
     }
+//    ui->scrollArea->adjustSize();
+#ifdef Q_WS_MAEMO_5
+    setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+#endif
+}
+
+void MainWindow::addGame()
+{
+    AddGame* ag = new AddGame(this);
+#ifdef Q_WS_MAEMO_5
+    ag->setAttribute(Qt::WA_Maemo5StackedWindow);
+#endif
+    connect(ag, SIGNAL(gameAdded()), this, SLOT(regenAppList()));
+    ag->show();
+}
+
+void MainWindow::showTip()
+{
     if (ui->actionDisplay_tips_on_startup->isChecked()) {
         int entries = settings.beginReadArray("global/tip");
         if (entries == 0)
             return;
-        settings.setArrayIndex(qrand()/RAND_MAX*entries);
-        qDebug() << settings.allKeys();
+        settings.setArrayIndex(float(qrand())/RAND_MAX*entries);
 #ifdef Q_WS_MAEMO_5
-        setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
-        QMaemo5InformationBox::information ( 0,  settings.value("text").toString(), QMaemo5InformationBox::NoTimeout);
+        QMaemo5InformationBox::information ( 0, tr("Tip of the day: ") + settings.value("text").toString(), QMaemo5InformationBox::NoTimeout);
 #else
         QMessageBox::information(this, "Tip of the day", settings.value("text").toString());
         ui->actionDisplay_tips_on_startup->setVisible(false);
@@ -84,9 +136,9 @@ void MainWindow::updateSettings()
     localsettings.beginGroup("global");
     localsettings.setValue("fullscreen", ui->actionLaunch_fullscreen->isChecked() ? "1" : "0");
     localsettings.setValue("tips", ui->actionDisplay_tips_on_startup->isChecked() ? "1" : "0");
+    localsettings.setValue("showhidden", ui->actionShow_hidden->isChecked() ? "1" : "0");
     localsettings.endGroup();
     localsettings.sync();
-
 }
 
 void MainWindow::support()

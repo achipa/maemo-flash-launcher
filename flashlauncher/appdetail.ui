@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>AppTitle</string>
+   <string>FlashLauncher</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -160,7 +160,7 @@
     </property>
     <addaction name="actionSend_config_via_email"/>
     <addaction name="actionCopy_config_to_clipboard"/>
-    <addaction name="actionDelete_app"/>
+    <addaction name="actionDelete"/>
     <addaction name="actionHide"/>
    </widget>
    <addaction name="menuMain"/>
@@ -175,12 +175,15 @@
     <string>Copy config to clipboard</string>
    </property>
   </action>
-  <action name="actionDelete_app">
+  <action name="actionDelete">
    <property name="text">
     <string>Delete</string>
    </property>
   </action>
   <action name="actionHide">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Hide</string>
    </property>

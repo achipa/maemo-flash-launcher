@@ -14,12 +14,17 @@ class AddGame : public QMainWindow
 public:
     explicit AddGame(QWidget *parent = 0);
     ~AddGame();
+Q_SIGNAL
+    void gameAdded();
 
 protected:
     void changeEvent(QEvent *e);
 
 private:
     Ui::AddGame *ui;
+private slots:
+    void verifyFields();
+    void pickFileDialog();
 };
 
 #endif // ADDGAME_H
