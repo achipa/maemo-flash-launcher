@@ -6,6 +6,7 @@
 #include "qdebug.h"
 
 #define DEFAULTSETTINGS "/usr/share/flashlauncher/applications.conf"
+#define FLSET(x,y) localsettings.value(x, settings.value(x,y))
 
 MainWindowLine::MainWindowLine(QWidget *parent) :
     QWidget(parent),
@@ -29,22 +30,26 @@ void MainWindowLine::loadLabels(QString cfgfile, QString groupname)
     configfile = cfgfile;
     appname = groupname;
     QSettings settings(configfile, QSettings::IniFormat);
+    QSettings localsettings("flashlauncher", "applications");
     settings.beginGroup(groupname);
-    ui->desc->setText(settings.value("description","").toString());
-    ui->name->setText(settings.value("name", appname).toString());
-    ui->kbsize->setText(settings.value("size", "? ").toString()+QString("KiB"));
+    localsettings.beginGroup(groupname);
+    ui->desc->setText(FLSET("description","").toString());
+    ui->name->setText(FLSET("name", appname).toString());
+    ui->kbsize->setText(FLSET("size", "? ").toString()+QString("KiB"));
     ui->img->setGeometry(0, 0, 64, 64);
-    if (!settings.value("image").toString().isEmpty())
+    if (!FLSET("image","").toString().isEmpty())
     {
-        SimpleFetch * sf = new SimpleFetch(settings.value("image").toString());
+        SimpleFetch * sf = new SimpleFetch(FLSET("image","").toString());
         connect(sf, SIGNAL(content(QByteArray)), this, SLOT(setImage(QByteArray)));
         connect(sf, SIGNAL(content(QByteArray)), sf, SLOT(deleteLater())); // delete simplefetch after desc set
     }
-    if (settings.value("hidden","0").toInt() > 0)
+    if (FLSET("hidden","0").toInt() > 0)
     {
         qDebug() << appname << "is hidden";
         setVisible(false);
     }
+    settings.endGroup();
+    localsettings.endGroup();
 }
 
 void MainWindowLine::setImage(QByteArray ba)

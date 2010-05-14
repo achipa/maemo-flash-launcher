@@ -30,6 +30,7 @@ private slots:
     void email();
     void support();
     void addGame();
+    void importSWF();
 private:
     Ui::MainWindow *ui;
     QVector<MainWindowLine*> mwlines;

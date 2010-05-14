@@ -1,11 +1,11 @@
-flashlauncher-experimental (0.2-maemo0) unstable; urgency=low
+flashlauncher (0.2-maemo0) unstable; urgency=low
 
   * Lots and lots of UI polish
   * Add games manually
 
  -- Attila Csipa <maemo@csipa.in.rs>  Thu, 13 May 2010 15:22:25 +0100
 
-flashlauncher-experimental (0.1.1-maemo0) unstable; urgency=low
+flashlauncher (0.1.1-maemo0) unstable; urgency=low
 
   * Maemo5 friendlification, UI polishing
 

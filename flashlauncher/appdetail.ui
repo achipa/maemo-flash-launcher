@@ -162,6 +162,7 @@
     <addaction name="actionCopy_config_to_clipboard"/>
     <addaction name="actionDelete"/>
     <addaction name="actionHide"/>
+    <addaction name="actionEdit"/>
    </widget>
    <addaction name="menuMain"/>
   </widget>
@@ -186,6 +187,11 @@
    </property>
    <property name="text">
     <string>Hide</string>
+   </property>
+  </action>
+  <action name="actionEdit">
+   <property name="text">
+    <string>Edit</string>
    </property>
   </action>
  </widget>

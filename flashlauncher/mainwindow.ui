@@ -68,6 +68,7 @@
     <addaction name="actionSupport_forum"/>
     <addaction name="actionDisplay_tips_on_startup"/>
     <addaction name="actionMake_a_game_request"/>
+    <addaction name="actionImport_local_SWF"/>
     <addaction name="actionAdd_game_manually"/>
     <addaction name="actionAbout"/>
     <addaction name="actionAbout_Qt"/>
@@ -115,10 +116,13 @@
    <property name="text">
     <string>Request game by email</string>
    </property>
+   <property name="visible">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="actionAdd_game_manually">
    <property name="text">
-    <string>Add game manually</string>
+    <string>Add game</string>
    </property>
   </action>
   <action name="actionSupport_forum">
@@ -132,6 +136,11 @@
    </property>
    <property name="text">
     <string>Show hidden</string>
+   </property>
+  </action>
+  <action name="actionImport_local_SWF">
+   <property name="text">
+    <string>Import SWFs</string>
    </property>
   </action>
  </widget>

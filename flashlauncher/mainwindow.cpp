@@ -5,6 +5,9 @@
 #include <QtDBus/QDBusInterface>
 #include <QtCore/QDir>
 #include <QtCore/QStringList>
+#include <QtCore/QDirIterator>
+#include <QtCore/QFileInfo>
+
 
 #include "qdebug.h"
 #ifdef Q_WS_MAEMO_5
@@ -12,6 +15,7 @@
     #include <QtGui/QAbstractKineticScroller>
 #endif
 #include "addgame.h"
+#include "addswfs.h"
 
 #define SETTINGSPATH "/usr/share/flashlauncher"
 #define TALKTHREAD "http://talk.maemo.org/showthread.php?t=52275"
@@ -31,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionLaunch_fullscreen, SIGNAL(triggered()), this, SLOT(updateSettings()));
     connect(ui->actionAdd_game_manually, SIGNAL(triggered()), this, SLOT(addGame()));
     connect(ui->actionShow_hidden, SIGNAL(triggered()), this, SLOT(regenAppList()));
+    connect(ui->actionImport_local_SWF, SIGNAL(triggered()), this, SLOT(importSWF()));
 
 #ifdef Q_WS_MAEMO_5 // no harm if we put this in anyway... might be useful for Diablo folks
     setAttribute(Qt::WA_Maemo5StackedWindow);
@@ -71,13 +76,14 @@ void MainWindow::regenAppList()
     QDir cfgDir(SETTINGSPATH);
     QStringList conflist = cfgDir.entryList (QStringList("*.conf"));
     conflist.append(localsettings.fileName());
+    QStringList overridelist;
     foreach (QString conffile, conflist)
     {
         qDebug() << conffile;
         QSettings s(cfgDir.filePath(conffile), QSettings::IniFormat);
         foreach (QString group, s.childGroups())
         {
-            if (group != "global")
+            if (!overridelist.contains(group) && group != "global")
             {
                 qDebug() << group;
                 s.beginGroup(group);
@@ -94,6 +100,7 @@ void MainWindow::regenAppList()
 
                 ui->verticalLayout_2->insertWidget(ui->verticalLayout_2->count()-1, mwline);
                 s.endGroup();
+                overridelist << group;
             }
         }
     }
@@ -101,6 +108,49 @@ void MainWindow::regenAppList()
 #ifdef Q_WS_MAEMO_5
     setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
 #endif
+}
+
+void MainWindow::importSWF()
+{
+    AddSWFs as;
+#ifdef Q_WS_MAEMO_5
+    setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    as.setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+    qApp->processEvents();
+#endif
+    QStringList namefilters;
+    namefilters << "*.swf" << "*.SWF" << "*.Swf";
+    QDirIterator it("/home/user/MyDocs", namefilters, QDir::NoFilter, QDirIterator::Subdirectories);
+    QStringList swflist;
+    while (it.hasNext()) {
+         QString fname = it.next();
+         swflist << fname;
+         as.addPath(fname);
+         qApp->processEvents();
+    }
+#ifdef Q_WS_MAEMO_5
+    setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+    as.setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+#endif
+    if (as.exec())
+    {
+        QSettings s("flashlauncher", "applications");
+        foreach (QString selectedfname, as.getSelected())
+        {
+            QFileInfo fi(selectedfname);
+            s.beginGroup(fi.baseName());
+            s.setValue("name", fi.baseName());
+            s.setValue("base", fi.absolutePath());
+            s.setValue("swf", QString("file://") + selectedfname);
+            s.setValue("size", fi.size()/1000);
+            s.setValue("engine", "1");
+            s.setValue("quality", "low");
+            s.endGroup();
+            s.sync();
+        }
+        regenAppList();
+    }
+
 }
 
 void MainWindow::addGame()

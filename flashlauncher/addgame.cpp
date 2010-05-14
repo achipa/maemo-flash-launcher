@@ -7,8 +7,11 @@
     #include <QtMaemo5/QMaemo5InformationBox>
 #endif
 
+#define FLSET(x,y) localsettings.value(x, settings.value(x,y))
+
 AddGame::AddGame(QWidget *parent) :
     QMainWindow(parent),
+    gameid(""),
     ui(new Ui::AddGame)
 {
     ui->setupUi(this);
@@ -19,6 +22,30 @@ AddGame::AddGame(QWidget *parent) :
 AddGame::~AddGame()
 {
     delete ui;
+}
+
+void AddGame::edit(QString cfgfile, QString appname)
+{
+    gameid = appname;
+    QSettings settings(cfgfile, QSettings::IniFormat);
+    QSettings localsettings("flashlauncher", "applications");
+    settings.beginGroup(appname);
+    localsettings.beginGroup(appname);
+    ui->nameE->setText(FLSET("name", appname).toString());
+    ui->swfE->setText(FLSET("swf", "").toString());
+    ui->baseE->setText(FLSET("base", "").toString());
+    ui->descE->setText(FLSET("description", "").toString());
+    ui->instrE->setText(FLSET("instructions", "").toString());
+    ui->imageE->setText(FLSET("image", "").toString());
+    ui->sizeSB->setValue(FLSET("size", 0).toInt());
+    ui->engineCB->setCurrentIndex(FLSET("engine", 1).toInt() -1);
+    if (FLSET("quality", "low").toString() == "low")
+        ui->qualityCB->setCurrentIndex(2);
+    else if (FLSET("quality","").toString() == "med")
+        ui->qualityCB->setCurrentIndex(1);
+    else
+        ui->qualityCB->setCurrentIndex(0);
+    settings.endGroup();
 }
 
 void AddGame::pickFileDialog()
@@ -35,7 +62,10 @@ void AddGame::verifyFields()
     if (ui->nameE->text().length() > 0 && ui->swfE->text().length() > 0 )
     {
         QSettings settings("flashlauncher", "applications");
-        settings.beginGroup(ui->nameE->text());
+        if (gameid.isEmpty()) // new games don't have ids
+            settings.beginGroup(ui->nameE->text());
+        else
+            settings.beginGroup(gameid);
         settings.setValue("name", ui->nameE->text());
         settings.setValue("swf", ui->swfE->text());
         settings.setValue("base", ui->baseE->text());

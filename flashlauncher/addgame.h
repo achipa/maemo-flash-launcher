@@ -16,11 +16,13 @@ public:
     ~AddGame();
 Q_SIGNAL
     void gameAdded();
-
+public slots:
+    void edit(QString cfgfile, QString appname);
 protected:
     void changeEvent(QEvent *e);
 
 private:
+    QString gameid;
     Ui::AddGame *ui;
 private slots:
     void verifyFields();

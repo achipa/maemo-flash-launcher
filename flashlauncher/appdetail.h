@@ -22,6 +22,7 @@ public slots:
     void setImage(QByteArray ba);
     void launch();
     void home();
+    void edit();
 
 protected:
     void changeEvent(QEvent *e);
