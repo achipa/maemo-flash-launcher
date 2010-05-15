@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     settings(QString(SETTINGSPATH)+"applications.conf", QSettings::IniFormat)
 {
     ui->setupUi(this);
+//    ui->centralWidget->setStyleSheet("QWidget { background-image: url(:/elem/background.png); }");
     connect(ui->actionAbout_Qt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui->actionMake_a_game_request, SIGNAL(triggered()), this, SLOT(email()));

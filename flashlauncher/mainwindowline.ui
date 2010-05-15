@@ -6,85 +6,264 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>593</width>
-    <height>149</height>
+    <width>800</width>
+    <height>135</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QFrame { 
+	background-image: url(none);
+}</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>4</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>4</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QFrame" name="frame">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>120</horstretch>
+       <verstretch>133</verstretch>
+      </sizepolicy>
      </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>133</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QFrame { 
+	background-repeat: none;
+	background-image: url(:/gametag/gametagwithoutplaybutton.png);
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
      </property>
      <property name="lineWidth">
-      <number>2</number>
+      <number>0</number>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLabel" name="img">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap resource="icons.qrc">:/icons/missingicon64.png</pixmap>
-        </property>
-        <property name="scaledContents">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <widget class="QLabel" name="name">
-          <property name="font">
-           <font>
-            <pointsize>24</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>13</x>
+        <y>21</y>
+        <width>614</width>
+        <height>135</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="img">
+         <property name="styleSheet">
+          <string notr="true">QFrame { 
+	background-image: url(none);
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="icons.qrc">:/icons/missingicon64.png</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QLabel" name="name">
+           <property name="styleSheet">
+            <string notr="true">QFrame { 
+	font: 125 22pt &quot;Nokia Sans DemiBold&quot;;
+	background-image: url(none);
+}</string>
+           </property>
+           <property name="text">
+            <string>Name</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="desc">
+           <property name="styleSheet">
+            <string notr="true">QFrame { 
+	background-image: url(none);
+	font: 75 18pt &quot;Nokia Sans Cn&quot;;
+
+}</string>
+           </property>
+           <property name="text">
+            <string>Description</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::MinimumExpanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>133</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>133</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+background-image: url(:/gametag/infobutton.png);
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>129</width>
+           <height>133</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-image: url(:/gametag/playmidbutton.png);</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <property name="margin">
+           <number>0</number>
           </property>
-          <property name="text">
-           <string>Name</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="desc">
-          <property name="text">
-           <string>Description</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>599</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QLabel" name="kbsize">
-        <property name="text">
-         <string>Size</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="styleSheet">
+             <string notr="true">QFrame { 
+	background-image: url(none);
+}</string>
+            </property>
+            <property name="text">
+             <string>Last played</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="kbsize">
+            <property name="styleSheet">
+             <string notr="true">QFrame { 
+	background-image: url(none);
+}</string>
+            </property>
+            <property name="text">
+             <string>Size</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>133</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>128</width>
+           <height>133</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="icons.qrc">
+           <normaloff>:/gametag/playbuttonright.png</normaloff>:/gametag/playbuttonright.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>128</width>
+           <height>133</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>

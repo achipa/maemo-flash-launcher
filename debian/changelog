@@ -1,3 +1,11 @@
+flashlauncher (0.3-maemo0) unstable; urgency=low
+
+  * New funky design from zorkworks
+  * import swf
+  * In-app game param editor
+
+ -- Attila Csipa <maemo@csipa.in.rs>  Thu, 13 May 2010 15:22:25 +0100
+
 flashlauncher (0.2-maemo0) unstable; urgency=low
 
   * Lots and lots of UI polish

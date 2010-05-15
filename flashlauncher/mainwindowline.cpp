@@ -17,6 +17,8 @@ MainWindowLine::MainWindowLine(QWidget *parent) :
 {
     ad = new AppDetail();
     ui->setupUi(this);
+//    ui->frame->setStyleSheet("QFrame { background-image: url(:/elem/gametag.png); }");
+
 }
 
 MainWindowLine::~MainWindowLine()
@@ -36,7 +38,7 @@ void MainWindowLine::loadLabels(QString cfgfile, QString groupname)
     ui->desc->setText(FLSET("description","").toString());
     ui->name->setText(FLSET("name", appname).toString());
     ui->kbsize->setText(FLSET("size", "? ").toString()+QString("KiB"));
-    ui->img->setGeometry(0, 0, 64, 64);
+    ui->img->setGeometry(0, 0, 92, 92);
     if (!FLSET("image","").toString().isEmpty())
     {
         SimpleFetch * sf = new SimpleFetch(FLSET("image","").toString());
@@ -59,7 +61,7 @@ void MainWindowLine::setImage(QByteArray ba)
     if (p.size().isEmpty())
         qDebug () << ba;
     else
-        ui->img->setPixmap(QPixmap(p).scaled(64, 64));
+        ui->img->setPixmap(QPixmap(p).scaled(92, 92));
 }
 
 void MainWindowLine::mouseReleaseEvent(QMouseEvent * event)
