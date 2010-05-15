@@ -29,8 +29,12 @@ public slots:
 protected:
     void changeEvent(QEvent *e);
 
+private slots:
+    void go();
+    void details();
+
 private:
-    void mouseReleaseEvent(QMouseEvent * event);
+//    void mouseReleaseEvent(QMouseEvent * event);
 #ifdef Q_WS_MAEMO_5
     QAbstractKineticScroller *scroller;
 #endif

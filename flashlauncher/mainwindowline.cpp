@@ -17,8 +17,9 @@ MainWindowLine::MainWindowLine(QWidget *parent) :
 {
     ad = new AppDetail();
     ui->setupUi(this);
-//    ui->frame->setStyleSheet("QFrame { background-image: url(:/elem/gametag.png); }");
 
+    connect(ui->playB, SIGNAL(clicked()), this, SLOT(go()));
+    connect(ui->infoB, SIGNAL(clicked()), this, SLOT(details()));
 }
 
 MainWindowLine::~MainWindowLine()
@@ -64,6 +65,24 @@ void MainWindowLine::setImage(QByteArray ba)
         ui->img->setPixmap(QPixmap(p).scaled(92, 92));
 }
 
+void MainWindowLine::go()
+{
+}
+
+void MainWindowLine::details()
+{
+    qDebug() << appname << " details";
+//    AppDetail* ad = new AppDetail(qobject_cast<QMainWindow*>(this->parent()));
+
+    ad->setParent(qobject_cast<QMainWindow*>(qApp->activeWindow()));
+    ad->loadLabels(configfile, appname);
+#ifdef Q_WS_MAEMO_5
+    ad->setAttribute(Qt::WA_Maemo5StackedWindow);
+#endif
+    ad->setWindowFlags(ad->windowFlags() | Qt::Window);
+    ad->show();
+}
+/*
 void MainWindowLine::mouseReleaseEvent(QMouseEvent * event)
 {
 #ifdef Q_WS_MAEMO_5
@@ -84,7 +103,7 @@ void MainWindowLine::mouseReleaseEvent(QMouseEvent * event)
     ad->setWindowFlags(ad->windowFlags() | Qt::Window);
     ad->show();
 }
-
+*/
 void MainWindowLine::changeEvent(QEvent *e)
 {
     QWidget::changeEvent(e);

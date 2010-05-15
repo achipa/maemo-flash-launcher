@@ -21,9 +21,8 @@
     <item>
      <widget class="QScrollArea" name="scrollArea">
       <property name="styleSheet">
-       <string notr="true">QWidget { 
-	background-attachment: fixed;
-}</string>
+       <string notr="true">background-attachment: fixed;
+</string>
       </property>
       <property name="widgetResizable">
        <bool>true</bool>
@@ -39,7 +38,7 @@
        </property>
        <property name="styleSheet">
         <string notr="true">QWidget { 
-	background-image: url(:/background/background.png); 
+	background-image: url(:/background/background-thin.png); 
 	background-attachment: fixed;
 }</string>
        </property>

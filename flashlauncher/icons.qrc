@@ -5,12 +5,13 @@
     </qresource>
     <qresource prefix="/gametag">
         <file>gametag.png</file>
-        <file>gametagwithoutplaybutton.png</file>
         <file>infobutton.png</file>
         <file>playbuttonright.png</file>
         <file>playmidbutton.png</file>
+        <file>gametagwithoutplaybutton.png</file>
     </qresource>
     <qresource prefix="/background">
-        <file>background.png</file>
+        <file>background-thin.png</file>
+        <file>dummypix.png</file>
     </qresource>
 </RCC>
