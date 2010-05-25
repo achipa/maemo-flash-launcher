@@ -1,8 +1,14 @@
+flashlauncher (0.3-maemo1) unstable; urgency=low
+
+  * PR1.2 compatibility rebuild
+
+ -- Attila Csipa <maemo@csipa.in.rs>  Tue, 25 May 2010 15:22:25 +0100
+
 flashlauncher (0.3-maemo0) unstable; urgency=low
 
   * New funky design from zorkworks
   * import swf
-  * In-app game param editor
+  * Game param editor
 
  -- Attila Csipa <maemo@csipa.in.rs>  Thu, 13 May 2010 15:22:25 +0100
 

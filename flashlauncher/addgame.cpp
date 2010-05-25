@@ -3,6 +3,8 @@
 
 #include <QtCore/QSettings>
 #include <QtGui/QFileDialog>
+#include <QtCore/QUrl>
+
 #ifdef Q_WS_MAEMO_5
     #include <QtMaemo5/QMaemo5InformationBox>
 #endif
@@ -54,7 +56,7 @@ void AddGame::pickFileDialog()
                                                     "/home/user/MyDocs",
                                                     tr("Flash (*.swf)"));
     if (!filename.isEmpty())
-        ui->swfE->setText(QString("file://") + filename);
+        ui->swfE->setText(QUrl::fromLocalFile(filename).toString());
 }
 
 void AddGame::verifyFields()

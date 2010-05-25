@@ -129,6 +129,14 @@ void MainWindow::importSWF()
          as.addPath(fname);
          qApp->processEvents();
     }
+    QDirIterator it2("/home/user/.macromedia/Flash_Player/#SharedObjects/", namefilters, QDir::NoFilter, QDirIterator::Subdirectories);
+    while (it2.hasNext()) {
+         QString fname = it2.next();
+         swflist << fname;
+         as.addPath(fname);
+         qApp->processEvents();
+    }
+
 #ifdef Q_WS_MAEMO_5
     setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
     as.setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);

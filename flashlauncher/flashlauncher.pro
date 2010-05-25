@@ -47,6 +47,7 @@ maemo5 {
     QT+= maemo5
 }
 unix {
+    message("Unix build")
     # VARIABLES
     isEmpty(PREFIX):PREFIX = /usr # /local ?
     BINDIR = $$PREFIX/bin

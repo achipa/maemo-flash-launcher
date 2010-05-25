@@ -22,6 +22,8 @@
 #define FLASHPLUGINPATH "/usr/lib/browser/plugins/libflashplayer.so"
 #define SETTINGSPATH "/usr/share/flashlauncher/applications.conf"
 
+#define FLSET(x,y) localsettings.value(x, settings.value(x,y))
+
 int launcher(QStringList args)
 {
         QSettings settings(SETTINGSPATH, QSettings::IniFormat);
@@ -33,8 +35,8 @@ int launcher(QStringList args)
         settings.beginGroup(appname);
         localsettings.beginGroup(appname);
         if (settings.allKeys().length() || localsettings.allKeys().length()) {
-            engine = engine ? engine : localsettings.value("engine", settings.value("engine", 1)).toInt();
-            qDebug () << "Launching " << appname << "(" << settings.value("swf").toString() << ") in engine " << engine;
+            engine = engine ? engine : FLSET("engine", 1).toInt();
+            qDebug () << "Launching " << appname << "(" << FLSET("swf","").toString() << ") in engine " << engine;
 
             if (engine == WEBKIT || engine == WEBKITBL) {
                 QWebView* qwv = new QWebView();
@@ -43,16 +45,16 @@ int launcher(QStringList args)
 //                qwv->load(QUrl("http://www.bubblebox.com"));
 //                qwv->load(settings.value("swf").toUrl());
                 if (engine == WEBKITBL) {
-                    QString base = settings.value("base", "").toString();
-                    html = settings.value("html", html).toString();
-                    html.replace("$QUALITY$",localsettings.value("quality", settings.value("quality", "low")).toString());
-                    html.replace("$SWF$",settings.value("swf").toString());
+                    QString base = FLSET("base", "").toString();
+                    html = FLSET("html", html).toString();
+                    html.replace("$QUALITY$",FLSET("quality", "low").toString());
+                    html.replace("$SWF$",FLSET("swf","").toString());
                     html.replace("$BASE$",base);
                     qDebug () << html << html.length() << base;
                     qwv->setHtml(html, base);
                 } else
-                    qwv->load(QUrl(settings.value("swf").toString()));
-                if (forcefullscreen || localsettings.value("fullscreen", settings.value("fullscreen", 1)).toBool())
+                    qwv->load(QUrl(FLSET("swf","").toString()));
+                if (forcefullscreen || FLSET("fullscreen", 1).toBool())
                     qwv->showFullScreen();
 #ifdef Q_WS_MAEMO_5
                 qwv->setAttribute(Qt::WA_Maemo5NonComposited);
@@ -62,14 +64,14 @@ int launcher(QStringList args)
 
             } else if (engine == MICROB) {
                 QDBusInterface browser("com.nokia.osso_browser", "/com/nokia/osso_browser/request", "com.nokia.osso_browser")  ;
-                browser.call("open_new_window", settings.value("swf").toString());
+                browser.call("open_new_window", FLSET("swf","").toString());
                 return 0;
 
             } else if (engine == MICROBBL) {
-                html = settings.value("html", html).toString();
-                QString base = settings.value("base", "").toString();
-                html.replace("$QUALITY$",settings.value("quality").toString());
-                html.replace("$SWF$",settings.value("swf").toString());
+                html = FLSET("html", html).toString();
+                QString base = FLSET("base", "").toString();
+                html.replace("$QUALITY$",FLSET("quality","low").toString());
+                html.replace("$SWF$",FLSET("swf","").toString());
                 html.replace("$BASE$",base);
                 QTemporaryFile tempfile;
                 if (tempfile.open()) {
@@ -88,7 +90,7 @@ int launcher(QStringList args)
                     QStringList params;
                     // winId is not what it seems to be. Beware the segfault
 //                    params << "-m" << "application/x-shockwave-flash" << "-p" << FLASHPLUGINPATH << localsettings.value("swf", settings.value("swf")).toString() << "-wid" << QString(int(qApp->activeWindow()->winId()));
-                    params << "-m" << "application/x-shockwave-flash" << "-p" << FLASHPLUGINPATH << localsettings.value("swf", settings.value("swf")).toString() ;
+                    params << "-m" << "application/x-shockwave-flash" << "-p" << FLASHPLUGINPATH << FLSET("swf","").toString() ;
                     qDebug() << params;
                     return QProcess::execute(KNPPLAYERPATH, params);
                 } else {

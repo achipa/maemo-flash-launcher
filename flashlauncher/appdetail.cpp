@@ -52,7 +52,7 @@ void AppDetail::loadLabels(QString cfgfile, QString groupname)
     ui->desc->setText(FLSET("description","").toString());
     this->setWindowTitle(FLSET("name", appname).toString());
     ui->instructions->setText(FLSET("instructions","Have fun !").toString());
-    ui->imgpic->setGeometry(0, 0, 128, 128);
+    ui->imgpic->setGeometry(0, 0, 92, 92);
     if (!FLSET("image", "").toString().isEmpty())
     {
         SimpleFetch * sf = new SimpleFetch(FLSET("image", "").toString());
@@ -171,7 +171,7 @@ void AppDetail::setImage(QByteArray ba)
     if (p.size().isEmpty())
         qDebug () << ba;
     else
-        ui->imgpic->setPixmap(QPixmap(p).scaled(128, 128));
+        ui->imgpic->setPixmap(QPixmap(p).scaled(92, 92));
 }
 void AppDetail::changeEvent(QEvent *e)
 {

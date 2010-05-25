@@ -15,10 +15,10 @@ MainWindowLine::MainWindowLine(QWidget *parent) :
     ui(new Ui::MainWindowLine)
 
 {
-    ad = new AppDetail();
     ui->setupUi(this);
+    ad = new AppDetail();
 
-    connect(ui->playB, SIGNAL(clicked()), this, SLOT(go()));
+    connect(ui->playB, SIGNAL(clicked()), ad, SLOT(launch()));
     connect(ui->infoB, SIGNAL(clicked()), this, SLOT(details()));
 }
 
@@ -36,6 +36,7 @@ void MainWindowLine::loadLabels(QString cfgfile, QString groupname)
     QSettings localsettings("flashlauncher", "applications");
     settings.beginGroup(groupname);
     localsettings.beginGroup(groupname);
+    ad->loadLabels(configfile, appname);
     ui->desc->setText(FLSET("description","").toString());
     ui->name->setText(FLSET("name", appname).toString());
     ui->kbsize->setText(FLSET("size", "? ").toString()+QString("KiB"));
@@ -65,17 +66,12 @@ void MainWindowLine::setImage(QByteArray ba)
         ui->img->setPixmap(QPixmap(p).scaled(92, 92));
 }
 
-void MainWindowLine::go()
-{
-}
-
 void MainWindowLine::details()
 {
     qDebug() << appname << " details";
 //    AppDetail* ad = new AppDetail(qobject_cast<QMainWindow*>(this->parent()));
 
     ad->setParent(qobject_cast<QMainWindow*>(qApp->activeWindow()));
-    ad->loadLabels(configfile, appname);
 #ifdef Q_WS_MAEMO_5
     ad->setAttribute(Qt::WA_Maemo5StackedWindow);
 #endif

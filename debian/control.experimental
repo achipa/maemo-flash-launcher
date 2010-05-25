@@ -1,4 +1,4 @@
-Source: flashlauncher-experimental
+Source: flashlauncher
 Section: user/games
 Priority: extra
 Maintainer: Attila Csipa <maemo@csipa.in.rs>
@@ -7,16 +7,16 @@ Standards-Version: 3.8.0
 Homepage: downloads.maemo.org
 XSBC-Bugtracker: https://bugs.maemo.org/enter_bug.cgi?product=flashlauncher
 
-Package: flashlauncher-experimental
+Package: flashlauncher
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Conflicts: flashlauncher
-Description: Flash Game and Application Database/Launcher
+Description: Flash Game and Application Database/Launcher (PR1.2)
  Flashlauncher is a flash game^H^H^H^H application database
  and launcher that facilitates the easy use of Maemo device
  friendly flash content.
  .
- This package is recommended for PR1.0-PR1.1.1 users
+ This package is recommended for PR1.2 users
  .
  This versions links to the bleeding edge unstable version of
  Qt in extras-devel.
